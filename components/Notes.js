@@ -1,9 +1,12 @@
 import React, { useState, useEffect} from 'react'
 import { View, Text, Platform, StyleSheet, Dimensions} from 'react-native'
+// import frets from './components/frets.json';
+const frets = require('./frets.json')
 
 export default function Notes() {
     const [note, setNote] = useState(undefined)
     const [string, setString] = useState(undefined)
+    const [answer, setAnswer] = useState(undefined)
 
     useEffect(() => {
         if (Platform.OS === 'web') {
@@ -21,29 +24,29 @@ export default function Notes() {
     }, [])
 
     let createNote = () => {
-        let tempNote = Math.floor(Math.random() * 7)
-        let tempString = Math.floor(Math.random() * 6)
+        let tempNote = (Math.floor(Math.random() * 7)).toString()
+        let tempString = (Math.floor(Math.random() * 6)).toString()
 
         switch (tempNote) {
-            case 0:
+            case "0":
                 setNote("A")
                 break;
-            case 1:
+            case "1":
                 setNote("B")
                 break;
-            case 2:
+            case "2":
                 setNote("C")
                 break;
-            case 3:
+            case "3":
                 setNote("D")
                 break;
-            case 4:
+            case "4":
                 setNote("E")
                 break;
-            case 5:
+            case "5":
                 setNote("F")
                 break;
-            case 6:
+            case "6":
                 setNote("G")
                 break;
             default:
@@ -51,27 +54,29 @@ export default function Notes() {
         }
 
         switch (tempString) {
-            case 0:
+            case "0":
                 setString("E (6th)")
                 break;
-            case 1:
+            case "1":
                 setString("A (5th)")
                 break;
-            case 2:
+            case "2":
                 setString("D (4th)")
                 break;
-            case 3:
+            case "3":
                 setString("G (3rd)")
                 break;
-            case 4:
+            case "4":
                 setString("B (2nd)")
                 break;
-            case 5:
+            case "5":
                 setString("e (1st)")
                 break;
             default:
                 setString("Uh oh, this should be a string...")
         }
+
+        setAnswer(frets[tempString][tempNote])
     }
 
     return (
@@ -79,6 +84,7 @@ export default function Notes() {
             <Text style={styles.noteText}>String: {string}</Text>
             <Text style={styles.noteText}>Note: {note}</Text>
             <Text style={{color: 'black'}}>*Tap anywhere on the screen to get a new set of notes</Text>
+            <Text style={styles.answer}>Correct Fret: {answer} *Hide this in the settings</Text>
         </View>
     )
 }
@@ -96,5 +102,8 @@ const styles = StyleSheet.create({
     noteText: {
         fontSize: 50,
         color: 'black'
+    },
+    answer: {
+        fontSize: 8
     }
 })
