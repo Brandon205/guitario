@@ -101,7 +101,7 @@ export default function Notes() {
             <Text style={styles.noteText}>String: <Text style={{color: stringColor}}>{string}</Text></Text>
             <Text style={styles.noteText}>Note: <Text style={{color: noteColor}}>{note}</Text></Text>
             <Text style={{color: 'white'}}>*Tap anywhere on the screen to get a new set of notes</Text>
-            <Text style={styles.answer}>Correct Fret: {answer} *Hide this in the settings</Text>
+            <Text style={styles.answer}>Correct Fret: {answer}</Text>
         </View>
     )
 }
