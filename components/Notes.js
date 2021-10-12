@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react'
-import { View, Text, Platform, StyleSheet, Dimensions} from 'react-native'
+import { View, Text, Platform, StyleSheet, Dimensions, TouchableOpacity} from 'react-native'
 const frets = require('./frets.json')
 
 export default function Notes() {
@@ -8,6 +8,7 @@ export default function Notes() {
     const [noteColor, setNoteColor] = useState(undefined)
     const [stringColor, setStringColor] = useState(undefined)
     const [answer, setAnswer] = useState(undefined)
+    const [showAnswer, setShowAnswer] = useState(false)
 
     useEffect(() => {
         if (Platform.OS === 'web') {
@@ -97,11 +98,12 @@ export default function Notes() {
     }
 
     return (
-        <View style={styles.container} onTouchStart={() => createNote()}>
+        <View style={styles.container} onTouchStart={() => createNote()} onLong>
             <Text style={styles.noteText}>String: <Text style={{color: stringColor}}>{string}</Text></Text>
             <Text style={styles.noteText}>Note: <Text style={{color: noteColor}}>{note}</Text></Text>
-            <Text style={{color: 'white'}}>*Tap anywhere on the screen to get a new set of notes</Text>
-            <Text style={styles.answer}>Correct Fret: {answer}</Text>
+            <Text style={{color: 'white'}}>*Tap anywhere on the screen to get a new note to play</Text>
+            <TouchableOpacity style={styles.answer} onLongPress={() => setShowAnswer(true)} onPressOut={() => setShowAnswer(false)}><Text style={styles.answer}>*Press and hold here to see the correct fret</Text></TouchableOpacity>
+            <Text style={{display: showAnswer ? 'inline-block' : 'none', color: 'white', fontSize: 20}}>{answer}</Text>
         </View>
     )
 }
@@ -121,7 +123,8 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     answer: {
-        fontSize: 8,
-        color: 'white'
+        fontSize: 12,
+        color: 'white',
+        fontWeight: 'bold'
     }
 })
