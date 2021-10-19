@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Platform } from 'react-native';
 import Notes from './components/Notes';
 import StringsNote from './components/StringsNote';
-// import { NativeRouter, Route, Link } from 'react-router-native';
 const frets = require('./components/frets.json')
 
 export default function App() {
