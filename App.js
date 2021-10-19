@@ -118,8 +118,12 @@ let createPair = () => { // When a string and a note are needed check to see if 
   return (
     <NavigationContainer>
       <Stack.Navigator style={styles.container}>
-        <Stack.Screen name="Notes" component={ () => <Notes createNote={() => createNote()} createString={() => createString} string={string} note={note} noteColor={noteColor} stringColor={stringColor} answer={answer} /> } />
-        <Stack.Screen name="String Notes" component={  () => <StringsNote createNote={() => createNote()} note={note} noteColor={noteColor} /> } />
+        <Stack.Screen name="Notes">
+          { props => <Notes {...props} createNote={() => createNote()} createString={() => createString} string={string} note={note} noteColor={noteColor} stringColor={stringColor} answer={answer} /> }
+        </Stack.Screen>
+        <Stack.Screen name="String Notes">
+          { props => <StringsNote {...props} createNote={() => createNote()} note={note} noteColor={noteColor} /> }
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
