@@ -7,8 +7,8 @@ const frets = require('./components/frets.json')
 
 export default function App() {
   const [note, setNote] = useState(undefined)
-  const [string, setString] = useState(undefined)
-  const [noteColor, setNoteColor] = useState(undefined)
+  const [string, setString] = useState("0")
+  const [noteColor, setNoteColor] = useState("0")
   const [stringColor, setStringColor] = useState(undefined)
   const [answer, setAnswer] = useState(undefined)
 
@@ -67,7 +67,8 @@ export default function App() {
       default:
         setNote("Uh oh, this should be a note...")
     }
-    setAnswer(frets[tempString][tempNote])
+    setAnswer(frets[string][note])
+    console.log('ran')
   }
 
   let createString = () => {
