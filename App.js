@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, Platform } from 'react-native';
+import { StyleSheet, View, Platform } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Notes from './components/Notes';
 import StringsNote from './components/StringsNote';
-const frets = require('./components/frets.json')
+const frets = require('./components/frets.json');
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [note, setNote] = useState("0")
@@ -108,23 +112,16 @@ let createPair = () => { // When a string and a note are needed check to see if 
       default:
         setString("Uh oh, this should be a string...")
     }
-    console.log("called")
     createPair()
   }
 
   return (
-    // <NativeRouter>
-    //   <View style={styles.container}>
-    //     <Route exact path="/" render={ () => <Notes createNote={() => createNote()} createString={() => createString} string={string} note={note} noteColor={noteColor} stringColor={stringColor} answer={answer} /> } />
-    //     <Route exact path="/stringsNote" render={ () => <StringsNote createNote={() => createNote()} note={note} noteColor={noteColor} /> } />
-    //     <Link to="/stringsNote"><Text>String Notes</Text></Link>
-    //     <Link to="/"><Text>Home</Text></Link>
-    //   </View>
-    // </NativeRouter>
-    <View style={styles.container}>
-      <Notes createNote={() => createNote()} createString={() => createString()} string={string} note={note} noteColor={noteColor} stringColor={stringColor} answer={answer} />
-      {/* <StringsNote createNote={() => createNote()} note={note} noteColor={noteColor} /> */}
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator style={styles.container}>
+        <Stack.Screen name="Notes" component={ () => <Notes createNote={() => createNote()} createString={() => createString} string={string} note={note} noteColor={noteColor} stringColor={stringColor} answer={answer} /> } />
+        <Stack.Screen name="String Notes" component={  () => <StringsNote createNote={() => createNote()} note={note} noteColor={noteColor} /> } />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
