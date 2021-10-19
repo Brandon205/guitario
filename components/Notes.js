@@ -3,10 +3,15 @@ import { View, Text, StyleSheet, Dimensions, TouchableOpacity} from 'react-nativ
 const frets = require('./frets.json')
 
 export default function Notes(props) {
-    const [showAnswer, setShowAnswer] = useState(false)
+    const [showAnswer, setShowAnswer] = useState(false) // If the user is holding the show answer text set to true
+
+    let playThis = () => { // Calls the functions needed to change the note and string
+        props.createNote()
+        props.createString()
+    }
 
     return (
-        <View style={styles.container} onTouchEnd={() => { props.createNote; props.createString}}>
+        <View style={styles.container} onTouchStart={() => playThis() }>
             <Text style={styles.noteText}>String: <Text style={{color: props.stringColor}}>{props.string}</Text></Text>
             <Text style={styles.noteText}>Note: <Text style={{color: props.noteColor}}>{props.note}</Text></Text>
             <Text style={{color: '#000'}}>*Tap anywhere on the screen to get a new note to play</Text>

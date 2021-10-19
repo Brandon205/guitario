@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, Platform, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, Platform } from 'react-native';
 import Notes from './components/Notes';
 import StringsNote from './components/StringsNote';
-import { NativeRouter, Route, Link } from 'react-router-native';
+// import { NativeRouter, Route, Link } from 'react-router-native';
 const frets = require('./components/frets.json')
 
 export default function App() {
-  const [note, setNote] = useState(undefined)
-  const [string, setString] = useState("0")
-  const [noteColor, setNoteColor] = useState("0")
-  const [stringColor, setStringColor] = useState(undefined)
-  const [answer, setAnswer] = useState(undefined)
+  const [note, setNote] = useState("0")
+  const [string, setString] = useState("E (6th)")
+  const [noteColor, setNoteColor] = useState("#33CC33")
+  const [stringColor, setStringColor] = useState("#D07173")
+  const [answer, setAnswer] = useState("5")
 
-  useEffect(() => {
+  useEffect(() => { // Adds listener for web users, also calls the initial createNote and createString
     if (Platform.OS === 'web') {
       document.addEventListener('keypress', (e) => {
         if (e.code === 'Space') {
@@ -32,7 +32,16 @@ export default function App() {
     }
 }, [])
 
-  let createNote = () => {
+
+let createPair = () => { // When a string and a note are needed check to see if a non default string and note are ready
+  console.log(string, note)
+  if (string !== "6" && note !== "0") {
+    setAnswer(frets[string][note])
+    console.log(answer)
+  }
+}
+
+  let createNote = () => { // Generates a random note and its color and puts both into state
     let tempNote = (Math.floor(Math.random() * 7)).toString()
 
     switch (tempNote) {
@@ -67,11 +76,9 @@ export default function App() {
       default:
         setNote("Uh oh, this should be a note...")
     }
-    setAnswer(frets[string][note])
-    console.log('ran')
   }
 
-  let createString = () => {
+  let createString = () => { // Generates a random string and its color and puts both into state
     let tempString = (Math.floor(Math.random() * 6)).toString()
 
     switch (tempString) {
@@ -102,17 +109,23 @@ export default function App() {
       default:
         setString("Uh oh, this should be a string...")
     }
+    console.log("called")
+    createPair()
   }
 
   return (
-    <NativeRouter>
-      <View style={styles.container}>
-        <Route exact path="/" render={ () => <Notes createNote={() => createNote()} createString={() => createString} string={string} note={note} noteColor={noteColor} stringColor={stringColor} answer={answer} /> } />
-        <Route exact path="/stringsNote" render={ () => <StringsNote createNote={() => createNote()} note={note} noteColor={noteColor} /> } />
-        <Link to="/stringsNote"><Text>String Notes</Text></Link>
-        <Link to="/"><Text>Home</Text></Link>
-      </View>
-    </NativeRouter>
+    // <NativeRouter>
+    //   <View style={styles.container}>
+    //     <Route exact path="/" render={ () => <Notes createNote={() => createNote()} createString={() => createString} string={string} note={note} noteColor={noteColor} stringColor={stringColor} answer={answer} /> } />
+    //     <Route exact path="/stringsNote" render={ () => <StringsNote createNote={() => createNote()} note={note} noteColor={noteColor} /> } />
+    //     <Link to="/stringsNote"><Text>String Notes</Text></Link>
+    //     <Link to="/"><Text>Home</Text></Link>
+    //   </View>
+    // </NativeRouter>
+    <View style={styles.container}>
+      <Notes createNote={() => createNote()} createString={() => createString()} string={string} note={note} noteColor={noteColor} stringColor={stringColor} answer={answer} />
+      {/* <StringsNote createNote={() => createNote()} note={note} noteColor={noteColor} /> */}
+    </View>
   );
 }
 
@@ -122,5 +135,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
+  }
 });
