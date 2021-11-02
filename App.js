@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Platform } from 'react-native';
+import { Platform, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Notes from './components/Notes';
@@ -105,23 +105,18 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator style={styles.container}>
-        <Stack.Screen name="Notes">
+      <Stack.Navigator screenOptions={{headerStyle: {backgroundColor: '#19191B'}, headerTintColor: '#fff', headerTitleAlign: 'center', headerTitleStyle: {fontSize: 24, fontWeight: 'bold'}}}>
+        <Stack.Screen name="Notes" options={({ navigation }) => ({
+          headerRight: () => (<Button title="StringNotes ->" onPress={() => navigation.navigate('String Notes')} />)
+        })}>
           { props => <Notes {...props} createNote={() => createNote()} createString={() => createString()} string={string} note={note} noteColor={noteColor} stringColor={stringColor} /> }
         </Stack.Screen>
-        <Stack.Screen name="String Notes">
+        <Stack.Screen name="String Notes" options={({ navigation }) => ({
+          headerLeft: () => (<Button title="<- Notes" onPress={() => navigation.navigate('Notes')} />)
+        })}>
           { props => <StringsNote {...props} createNote={() => createNote()} note={note} noteColor={noteColor} /> }
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
-});
