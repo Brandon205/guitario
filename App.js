@@ -4,7 +4,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Notes from './components/Notes';
 import StringsNote from './components/StringsNote';
-const frets = require('./components/frets.json');
 
 const Stack = createNativeStackNavigator();
 
@@ -13,7 +12,6 @@ export default function App() {
   const [string, setString] = useState("E (6th)")
   const [noteColor, setNoteColor] = useState("#33CC33")
   const [stringColor, setStringColor] = useState("#D07173")
-  const [answer, setAnswer] = useState("5")
 
   useEffect(() => { // Adds listener for web users, also calls the initial createNote and createString
     if (Platform.OS === 'web') {
@@ -34,15 +32,6 @@ export default function App() {
       }
     }
 }, [])
-
-
-let createPair = () => { // When a string and a note are needed check to see if a non default string and note are ready
-  console.log(string, note)
-  if (string !== "6" && note !== "0") {
-    setAnswer(frets[string][note])
-    console.log(answer)
-  }
-}
 
   let createNote = () => { // Generates a random note and its color and puts both into state
     let tempNote = (Math.floor(Math.random() * 7)).toString()
@@ -112,14 +101,13 @@ let createPair = () => { // When a string and a note are needed check to see if 
       default:
         setString("Uh oh, this should be a string...")
     }
-    createPair()
   }
 
   return (
     <NavigationContainer>
       <Stack.Navigator style={styles.container}>
         <Stack.Screen name="Notes">
-          { props => <Notes {...props} createNote={() => createNote()} createString={() => createString} string={string} note={note} noteColor={noteColor} stringColor={stringColor} answer={answer} /> }
+          { props => <Notes {...props} createNote={() => createNote()} createString={() => createString()} string={string} note={note} noteColor={noteColor} stringColor={stringColor} /> }
         </Stack.Screen>
         <Stack.Screen name="String Notes">
           { props => <StringsNote {...props} createNote={() => createNote()} note={note} noteColor={noteColor} /> }

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Dimensions, TouchableOpacity} from 'react-nativ
 const frets = require('./frets.json')
 
 export default function Notes(props) {
-    const [showAnswer, setShowAnswer] = useState(false) // If the user is holding the show answer text set to true
+    const [showAnswer, setShowAnswer] = useState(true) // If the user is holding the show answer text set to true
 
     let playThis = () => { // Calls the functions needed to change the note and string
         props.createNote()
@@ -11,12 +11,12 @@ export default function Notes(props) {
     }
 
     return (
-        <View style={styles.container} onTouchStart={() => playThis() }>
+        <View style={styles.container} onTouchStart={() => playThis()}>
             <Text style={styles.noteText}>String: <Text style={{color: props.stringColor}}>{props.string}</Text></Text>
             <Text style={styles.noteText}>Note: <Text style={{color: props.noteColor}}>{props.note}</Text></Text>
             <Text style={{color: '#000'}}>*Tap anywhere on the screen to get a new note to play</Text>
             <TouchableOpacity style={styles.answer} onLongPress={() => setShowAnswer(true)} onPressOut={() => setShowAnswer(false)}><Text style={styles.answer}>*Press and hold here to see the correct fret</Text></TouchableOpacity>
-            <Text style={{display: showAnswer ? 'inline-block' : 'none', color: 'white', fontSize: 20}}>{props.answer}</Text>
+            <Text style={{display: showAnswer ? 'inline-block' : 'none', color: 'white', fontSize: 20}}>{frets[props.string][props.note]}</Text>
         </View>
     )
 }
