@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import { View, Text, StyleSheet, Pressable} from 'react-native'
 const frets = require('./frets.json')
 
 export default function Notes(props) {
     const [showAnswer, setShowAnswer] = useState(false) // If the user is holding the show answer text set to true
 
     let playThis = () => { // Calls the functions needed to change the note and string
+        setShowAnswer(false)
         props.createNote()
         props.createString()
     }
@@ -17,8 +18,13 @@ export default function Notes(props) {
                 <Text style={styles.noteText}>String: <Text style={{color: props.stringColor}}>{props.string}</Text></Text>
                 <Text style={styles.noteText}>Note: <Text style={{color: props.noteColor}}>{props.note}</Text></Text>
             </View>
-            <Text style={{color: '#fff', marginTop: 15}}>*Tap above here on the screen to get a new note to play</Text>
-            <TouchableOpacity style={styles.answer} onLongPress={() => setShowAnswer(true)} onPressOut={() => setShowAnswer(false)}><Text style={styles.answer}>*Press and hold here to see the correct fret</Text></TouchableOpacity>
+            <Text style={{color: '#fff', marginTop: 15}}>*Tap "String" or "Note" above to generate a new note*</Text>
+            {/* <TouchableOpacity style={styles.answer} onLongPress={() => setShowAnswer(true)} onPressOut={() => setShowAnswer(false)}><Text style={styles.answer}>*Press and hold here to see the correct fret</Text></TouchableOpacity> */}
+            <Pressable onPress={() => setShowAnswer(true)}>
+                <View style={styles.button}>
+                    <Text style={styles.buttonText}>Stuck?</Text>
+                </View>
+            </Pressable>
         </View>
     )
 }
@@ -47,5 +53,18 @@ const styles = StyleSheet.create({
     toPlay: {
         display: 'flex',
         alignItems: 'center'
+    },
+    button: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+        backgroundColor: '#2196F3',
+        borderRadius: 20
+    },
+    buttonText: {
+        color: 'white',
+        padding: 10,
+        fontSize: 20
     }
 })
