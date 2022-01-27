@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 const frets = require('./frets.json')
 
 export default function Notes(props) {
@@ -11,12 +11,14 @@ export default function Notes(props) {
     }
 
     return (
-        <View style={styles.container} onTouchStart={() => playThis()}>
-            <Text style={styles.noteText}>String: <Text style={{color: props.stringColor}}>{props.string}</Text></Text>
-            <Text style={styles.noteText}>Note: <Text style={{color: props.noteColor}}>{props.note}</Text></Text>
-            <Text style={{color: '#fff'}}>*Tap anywhere on the screen to get a new note to play</Text>
+        <View style={styles.container}>
+            <Text style={{display: showAnswer ? 'flex' : 'none', color: 'white', fontSize: 30}}>Fret: {frets[props.string][props.note]}</Text>
+            <View style={styles.toPlay} onTouchEnd={() => playThis()}>
+                <Text style={styles.noteText}>String: <Text style={{color: props.stringColor}}>{props.string}</Text></Text>
+                <Text style={styles.noteText}>Note: <Text style={{color: props.noteColor}}>{props.note}</Text></Text>
+            </View>
+            <Text style={{color: '#fff', marginTop: 15}}>*Tap above here on the screen to get a new note to play</Text>
             <TouchableOpacity style={styles.answer} onLongPress={() => setShowAnswer(true)} onPressOut={() => setShowAnswer(false)}><Text style={styles.answer}>*Press and hold here to see the correct fret</Text></TouchableOpacity>
-            <Text style={{display: showAnswer ? 'flex' : 'none', color: 'white', fontSize: 20}}>{frets[props.string][props.note]}</Text>
         </View>
     )
 }
@@ -28,16 +30,22 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#292B36',
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height
+        width: '100%',
+        height: '100%'
     },
     noteText: {
         fontSize: 50,
-        color: 'white'
+        color: 'white',
+        paddingTop: 20
     },
     answer: {
         fontSize: 12,
+        marginTop: 15,
         color: 'white',
         fontWeight: 'bold'
+    },
+    toPlay: {
+        display: 'flex',
+        alignItems: 'center'
     }
 })
