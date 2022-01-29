@@ -15,7 +15,6 @@ export default function Notes(props) {
             }
           })
         }
-        setShowAnswer(false)
         props.createNote()
         props.createString()
     

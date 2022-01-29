@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Platform, Button } from 'react-native';
+import React, { useState } from 'react';
+import { Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Notes from './components/Notes';
 import StringsNote from './components/StringsNote';
+import Frequencies from './components/Frequencies';
 
 const Stack = createNativeStackNavigator();
 
@@ -87,14 +88,15 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerStyle: {backgroundColor: '#19191B'}, headerTintColor: '#fff', headerTitleAlign: 'center', headerTitleStyle: {fontSize: 24, fontWeight: 'bold'}}}>
         <Stack.Screen name="Note Practice" options={({ navigation }) => ({
-          headerRight: () => (<Button title="StringNotes ->" onPress={() => navigation.navigate('String Notes')} />)
+          headerRight: () => (<Button title="Frequencies ->" onPress={() => navigation.navigate('Frequencies')} />)
         })}>
           { props => <Notes {...props} createNote={() => createNote()} createString={() => createString()} string={string} note={note} noteColor={noteColor} stringColor={stringColor} /> }
         </Stack.Screen>
-        <Stack.Screen name="String Notes" options={({ navigation }) => ({
-          headerLeft: () => (<Button title="<- Notes" onPress={() => navigation.navigate('Notes')} />)
+        <Stack.Screen name="Frequencies" options={({ navigation }) => ({
+          headerLeft: () => (<Button title="<- Notes" onPress={() => navigation.navigate('Note Practice')} />)
         })}>
-          { props => <StringsNote {...props} createNote={() => createNote()} note={note} noteColor={noteColor} /> }
+          {/* { props => <StringsNote {...props} createNote={() => createNote()} note={note} noteColor={noteColor} /> } */}
+          { props => <Frequencies /> }
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
