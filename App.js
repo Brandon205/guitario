@@ -13,26 +13,6 @@ export default function App() {
   const [noteColor, setNoteColor] = useState("#33CC33")
   const [stringColor, setStringColor] = useState("#D07173")
 
-  useEffect(() => { // Adds listener for web users, also calls the initial createNote and createString
-    if (Platform.OS === 'web') {
-      document.addEventListener('keypress', (e) => {
-        if (e.code === 'Space') {
-          createNote()
-          createString()
-        }
-      })
-    }
-
-    createNote()
-    createString()
-
-    return () => {
-      if (Platform.OS === 'web') {
-        document.removeEventListener('keypress')
-      }
-    }
-}, [])
-
   let createNote = () => { // Generates a random note and its color and puts both into state
     let tempNote = (Math.floor(Math.random() * 7)).toString()
 
@@ -106,7 +86,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerStyle: {backgroundColor: '#19191B'}, headerTintColor: '#fff', headerTitleAlign: 'center', headerTitleStyle: {fontSize: 24, fontWeight: 'bold'}}}>
-        <Stack.Screen name="Notes" options={({ navigation }) => ({
+        <Stack.Screen name="Note Practice" options={({ navigation }) => ({
           headerRight: () => (<Button title="StringNotes ->" onPress={() => navigation.navigate('String Notes')} />)
         })}>
           { props => <Notes {...props} createNote={() => createNote()} createString={() => createString()} string={string} note={note} noteColor={noteColor} stringColor={stringColor} /> }
