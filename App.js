@@ -87,13 +87,13 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerStyle: {backgroundColor: '#19191B'}, headerTintColor: '#fff', headerTitleAlign: 'center', headerTitleStyle: {fontSize: 24, fontWeight: 'bold'}}}>
-        <Stack.Screen name="Note Practice" options={({ navigation }) => ({
+        <Stack.Screen name="Guitario" options={({ navigation }) => ({
           headerRight: () => (<Button title="Frequencies ->" onPress={() => navigation.navigate('Frequencies')} />)
         })}>
           { props => <Notes {...props} createNote={() => createNote()} createString={() => createString()} string={string} note={note} noteColor={noteColor} stringColor={stringColor} /> }
         </Stack.Screen>
         <Stack.Screen name="Frequencies" options={({ navigation }) => ({
-          headerLeft: () => (<Button title="<- Notes" onPress={() => navigation.navigate('Note Practice')} />)
+          headerLeft: () => (<Button title="<- Notes" onPress={() => navigation.navigate('Guitario')} />)
         })}>
           {/* { props => <StringsNote {...props} createNote={() => createNote()} note={note} noteColor={noteColor} /> } */}
           { props => <Frequencies /> }
