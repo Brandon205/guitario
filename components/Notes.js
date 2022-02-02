@@ -1,9 +1,29 @@
-import React, { useState } from 'react'
-import { View, Text, StyleSheet, Pressable} from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { View, Text, StyleSheet, Pressable, Platform} from 'react-native'
 const frets = require('./frets.json')
 
 export default function Notes(props) {
     const [showAnswer, setShowAnswer] = useState(false) // If the user is holding the show answer text set to true
+
+    useEffect(() => { // Adds listener for web users, also calls the initial createNote and createString
+        if (Platform.OS === 'web') {
+          document.addEventListener('keypress', (e) => {
+            if (e.code === 'Space') {
+              setShowAnswer(false)
+              props.createNote()
+              props.createString()
+            }
+          })
+        }
+        props.createNote()
+        props.createString()
+    
+        return () => {
+          if (Platform.OS === 'web') {
+            document.removeEventListener('keypress')
+          }
+        }
+    }, [])
 
     let playThis = () => { // Calls the functions needed to change the note and string
         setShowAnswer(false)
@@ -13,13 +33,14 @@ export default function Notes(props) {
 
     return (
         <View style={styles.container}>
-            <Text style={{display: showAnswer ? 'flex' : 'none', color: 'white', fontSize: 30}}>Fret: {frets[props.string][props.note]}</Text>
+            <Text style={{display: showAnswer ? 'flex' : 'none', color: 'white', fontSize: 30}}>Correct fret: {frets[props.string][props.note]}</Text>
             <View style={styles.toPlay} onTouchEnd={() => playThis()}>
                 <Text style={styles.noteText}>String: <Text style={{color: props.stringColor}}>{props.string}</Text></Text>
                 <Text style={styles.noteText}>Note: <Text style={{color: props.noteColor}}>{props.note}</Text></Text>
             </View>
-            <Text style={{color: '#fff', marginTop: 15}}>*Tap "String" or "Note" above to generate a new note*</Text>
-            <Pressable onPress={() => setShowAnswer(!showAnswer)}>
+
+            <Text style={{color: '#fff', marginTop: 15}}>*Tap the words above or hit the spacebar to generate a new note*</Text>
+            <Pressable onPress={() => setShowAnswer(true)}>
                 <View style={styles.button}>
                     <Text style={styles.buttonText}>Stuck?</Text>
                 </View>
