@@ -40,7 +40,7 @@ export default function Notes(props) {
             </View>
 
             <Text style={{color: '#fff', marginTop: 15}}>*Tap the words above or hit the spacebar to generate a new note*</Text>
-            <Pressable onPress={() => setShowAnswer(true)}>
+            <Pressable onPress={() => setShowAnswer(!showAnswer)}>
                 <View style={styles.button}>
                     <Text style={styles.buttonText}>Stuck?</Text>
                 </View>
