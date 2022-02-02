@@ -19,8 +19,7 @@ export default function Notes(props) {
                 <Text style={styles.noteText}>Note: <Text style={{color: props.noteColor}}>{props.note}</Text></Text>
             </View>
             <Text style={{color: '#fff', marginTop: 15}}>*Tap "String" or "Note" above to generate a new note*</Text>
-            {/* <TouchableOpacity style={styles.answer} onLongPress={() => setShowAnswer(true)} onPressOut={() => setShowAnswer(false)}><Text style={styles.answer}>*Press and hold here to see the correct fret</Text></TouchableOpacity> */}
-            <Pressable onPress={() => setShowAnswer(true)}>
+            <Pressable onPress={() => setShowAnswer(!showAnswer)}>
                 <View style={styles.button}>
                     <Text style={styles.buttonText}>Stuck?</Text>
                 </View>
