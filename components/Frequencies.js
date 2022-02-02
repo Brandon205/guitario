@@ -1,73 +1,40 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Button, StyleSheet } from 'react-native';
+import { Audio } from 'expo-av';
 
 export default function Frequencies() {
-    const [freq, setFreq] = useState(0);
+    const [recording, setRecording] = React.useState();
 
-    let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    let microphoneStream = null;
-    let analyserNode = audioCtx.createAnalyser()
-    let audioData = new Float32Array(analyserNode.fftSize);;
-    let corrolatedSignal = new Float32Array(analyserNode.fftSize);;
-    let localMaxima = new Array(10);
-
-    function startPitchDetection() {
-    navigator.mediaDevices.getUserMedia ({audio: true}).then((stream) => {
-            microphoneStream = audioCtx.createMediaStreamSource(stream);
-            microphoneStream.connect(analyserNode);
-
-            audioData = new Float32Array(analyserNode.fftSize);
-            corrolatedSignal = new Float32Array(analyserNode.fftSize);
-
-            setInterval(() => {
-                analyserNode.getFloatTimeDomainData(audioData);
-
-                let pitch = getAutocorrolatedPitch();
-
-                setFreq(pitch)
-                // frequencyDisplayElement.innerHTML = `${pitch}`;
-            }, 300);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-}
-
-function getAutocorrolatedPitch() {
-    // First: autocorrolate the signal
-    let maximaCount = 0;
-
-    for (let l = 0; l < analyserNode.fftSize; l++) {
-        corrolatedSignal[l] = 0;
-        for (let i = 0; i < analyserNode.fftSize - l; i++) {
-            corrolatedSignal[l] += audioData[i] * audioData[i + l];
-        }
-        if (l > 1) {
-            if ((corrolatedSignal[l - 2] - corrolatedSignal[l - 1]) < 0
-                && (corrolatedSignal[l - 1] - corrolatedSignal[l]) > 0) {
-                localMaxima[maximaCount] = (l - 1);
-                maximaCount++;
-                if ((maximaCount >= localMaxima.length))
-                    break;
-            }
+    async function startRecording() {
+    try {
+        console.log('Requesting permissions..');
+        await Audio.requestPermissionsAsync();
+        await Audio.setAudioModeAsync({
+        allowsRecordingIOS: true,
+        playsInSilentModeIOS: true,
+        }); 
+        console.log('Starting recording..');
+        const { recording } = await Audio.Recording.createAsync(
+            Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
+        );
+        setRecording(recording);
+        console.log('Recording started');
+    } catch (err) {
+        console.error('Failed to start recording', err);
         }
     }
 
-    // Second: find the average distance in samples between maxima
-    let maximaMean = localMaxima[0];
-
-    for (let i = 1; i < maximaCount; i++)
-        maximaMean += localMaxima[i] - localMaxima[i - 1];
-
-    maximaMean /= maximaCount;
-
-    return audioCtx.sampleRate / maximaMean;
-}
+    async function stopRecording() { // TEST RECORDING AT file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540brandonb205%252Fguitario/Audio/recording-8b74acc7-9ab6-441e-a4d8-18371302edc5.m4a
+    console.log('Stopping recording..');
+    // setRecording(undefined); // Maybe get rid of this to have an access point to the latest recording?
+    await recording.stopAndUnloadAsync();
+    const uri = recording.getURI(); // Might use this to access the stored audio file
+    console.log('Recording stopped and stored at', uri);
+    }
 
     return (
         <View style={styles.container}>
-            <Text>Current frequency you are playing: </Text>
-            <Text>{freq}</Text>
+            <Button title={recording ? 'Stop Recording' : 'Start Recording'} onPress={recording ? stopRecording : startRecording} />
         </View>
     )
 }
