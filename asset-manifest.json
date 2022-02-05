@@ -1,22 +1,22 @@
 {
   "files": {
-    "app.js": "/guitario/static/js/app.e157ec6c.chunk.js",
-    "app.js.map": "/guitario/static/js/app.e157ec6c.chunk.js.map",
+    "app.js": "/guitario/static/js/app.30c5d44d.chunk.js",
+    "app.js.map": "/guitario/static/js/app.30c5d44d.chunk.js.map",
     "runtime~app.js": "/guitario/static/js/runtime~app.3cc89374.js",
     "runtime~app.js.map": "/guitario/static/js/runtime~app.3cc89374.js.map",
-    "static/js/2.c95ef036.chunk.js": "/guitario/static/js/2.c95ef036.chunk.js",
-    "static/js/2.c95ef036.chunk.js.map": "/guitario/static/js/2.c95ef036.chunk.js.map",
+    "static/js/2.2ec6b4e0.chunk.js": "/guitario/static/js/2.2ec6b4e0.chunk.js",
+    "static/js/2.2ec6b4e0.chunk.js.map": "/guitario/static/js/2.2ec6b4e0.chunk.js.map",
     "favicon-16.png": "/guitario/favicon-16.png",
     "favicon-32.png": "/guitario/favicon-32.png",
     "favicon.ico": "/guitario/favicon.ico",
     "index.html": "/guitario/index.html",
     "manifest.json": "/guitario/manifest.json",
     "serve.json": "/guitario/serve.json",
-    "static/js/2.c95ef036.chunk.js.LICENSE.txt": "/guitario/static/js/2.c95ef036.chunk.js.LICENSE.txt"
+    "static/js/2.2ec6b4e0.chunk.js.LICENSE.txt": "/guitario/static/js/2.2ec6b4e0.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime~app.3cc89374.js",
-    "static/js/2.c95ef036.chunk.js",
-    "static/js/app.e157ec6c.chunk.js"
+    "static/js/2.2ec6b4e0.chunk.js",
+    "static/js/app.30c5d44d.chunk.js"
   ]
 }
