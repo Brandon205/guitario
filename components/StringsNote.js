@@ -1,12 +1,12 @@
 import React from 'react'
-import { View, Text, StyleSheet, Dimensions } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 
 export default function StringsNote(props) {
     return (
         <View style={styles.container} onTouchStart={() => props.createNote()}>
             <Text style={styles.screenText}>Note: <Text style={{color: props.noteColor}}>{props.note}</Text></Text>
             <Text style={{color: '#fff', fontWeight: 'bold'}}>*Play the above note on all of the strings</Text>
-            <Text style={{color: '#fff'}}>*Tap anywhere on the screen to get a new note to play</Text>
+            <Text style={{color: '#fff', marginTop: 10}}>*Tap anywhere on the screen or hit the spacebar to generate a new note*</Text>
         </View>
     )
 }
@@ -18,12 +18,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#292B36',
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height
+        width: '100%',
+        height: '100%'
     }, 
     screenText: {
         fontSize: 50,
-        color: 'white'
+        color: 'white',
+        marginBottom: 18
     },
     
 })

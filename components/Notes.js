@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Pressable, Platform} from 'react-native'
+import { View, Text, StyleSheet, Pressable, Platform } from 'react-native'
 const frets = require('./frets.json')
 
 export default function Notes(props) {
@@ -39,7 +39,7 @@ export default function Notes(props) {
                 <Text style={styles.noteText}>Note: <Text style={{color: props.noteColor}}>{props.note}</Text></Text>
             </View>
 
-            <Text style={{color: '#fff', marginTop: 15}}>*Tap the words above or hit the spacebar to generate a new note*</Text>
+            <Text style={{color: '#fff', marginTop: 15}}>*Tap the words above or hit the spacebar to generate a new note to play*</Text>
             <Pressable onPress={() => setShowAnswer(!showAnswer)}>
                 <View style={styles.button}>
                     <Text style={styles.buttonText}>Stuck?</Text>
