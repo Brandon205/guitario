@@ -34,12 +34,12 @@ export default function Notes(props) {
     return (
         <View style={styles.container}>
             <Text style={{display: showAnswer ? 'flex' : 'none', color: 'white', fontSize: 30}}>Correct fret: {frets[props.string][props.note]}</Text>
-            <View style={styles.toPlay} onTouchEnd={() => playThis()}>
+            <Pressable style={styles.toPlay} onPress={() => playThis()}>
                 <Text style={styles.noteText}>String: <Text style={{color: props.stringColor}}>{props.string}</Text></Text>
                 <Text style={styles.noteText}>Note: <Text style={{color: props.noteColor}}>{props.note}</Text></Text>
-            </View>
+            </Pressable>
 
-            <Text style={{color: '#fff', marginTop: 15}}>*Tap the words above or hit the spacebar to generate a new note to play*</Text>
+            <Text style={styles.text}>*Tap the words above or tap the spacebar to generate a new note to play*</Text>
             <Pressable onPress={() => setShowAnswer(!showAnswer)}>
                 <View style={styles.button}>
                     <Text style={styles.buttonText}>Stuck?</Text>
@@ -63,6 +63,11 @@ const styles = StyleSheet.create({
         fontSize: 50,
         color: 'white',
         paddingTop: 20
+    },
+    text: {
+        color: '#fff',
+        marginTop: 15,
+        maxWidth: '75%'
     },
     answer: {
         fontSize: 12,

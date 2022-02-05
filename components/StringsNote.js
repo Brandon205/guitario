@@ -1,17 +1,19 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Pressable } from 'react-native'
 
 export default function StringsNote(props) {
     return (
-        <View style={styles.container} onTouchStart={() => props.createNote()}>
-            <Text style={styles.screenText}>Note: <Text style={{color: props.noteColor}}>{props.note}</Text></Text>
-            <Text style={{color: '#fff', fontWeight: 'bold'}}>*Play the above note on all of the strings</Text>
-            <Text style={{color: '#fff', marginTop: 10}}>*Tap anywhere on the screen or hit the spacebar to generate a new note*</Text>
-        </View>
+        <Pressable style={styles.container} onTouchStart={() => props.createNote()}>
+            <Text style={styles.noteText}>Note: <Text style={{color: props.noteColor}}>{props.note}</Text></Text>
+            <View style={styles.textContainer}>
+                <Text style={styles.text}>*Play the above note on all of the strings</Text>
+                <Text style={styles.text}>*Tap anywhere on the screen or tap the spacebar to generate a new note*</Text>
+            </View>
+        </Pressable>
     )
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({ // {color: '#fff', fontWeight: 'bold'}{color: '#fff', marginTop: 10}
     container: {
         textAlign: 'center',
         display: 'flex',
@@ -21,10 +23,18 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%'
     }, 
-    screenText: {
+    textContainer: {
+        color: '#fff',
+        maxWidth: '75%'
+    },
+    noteText: {
         fontSize: 50,
         color: 'white',
         marginBottom: 18
     },
+    text: {
+        color: '#fff',
+        marginTop: 10,
+    }
     
 })
