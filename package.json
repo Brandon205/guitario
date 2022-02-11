@@ -22,7 +22,7 @@
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
     "react-native-web": "^0.17.5",
-    "expo-av": "~9.2.3"
+    "standardized-audio-context": "^25.3.21"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

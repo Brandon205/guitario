@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Button, StyleSheet } from 'react-native';
 import { Audio } from 'expo-av';
 
@@ -41,12 +41,8 @@ export default function Frequencies() {
 
 const styles = StyleSheet.create({
     container: {
-        textAlign: 'center',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#292B36',
-        width: '100%',
-        height: '100%'
     }
 })
