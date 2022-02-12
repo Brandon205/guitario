@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import Notes from './Notes.js';
+import { WebView } from 'react-native-webview'
 import { noteFromPitch } from "../helpers/helper.js";
 import autoCorrelate from "../helpers/autoCorrelate.js";
 
@@ -27,7 +28,7 @@ const noteStrings = [
 export default function Frequencies(props) {
   const [source, setSource] = useState(null);
   const [started, setStart] = useState(false);
-  const [pitchNote, setPitchNote] = useState("C");
+  const [pitchNote, setPitchNote] = useState("N/A");
   const [pitchScale, setPitchScale] = useState("4");
   const [pitch, setPitch] = useState("0");
   const [next, setNext] = useState(false) // For knowing if next note function has been run yet or not
@@ -49,6 +50,8 @@ export default function Frequencies(props) {
     }
   };
 
+  // console.log(audioCtx)
+
   useEffect(() => { // When the source changes update it in the app
     if (source != null) {
       source.connect(analyserNode);
@@ -57,14 +60,12 @@ export default function Frequencies(props) {
 
   useEffect(() => { // Using the useEffect so that the state can be updated in App without causing an error
     if (next) {
-      console.log('updating note')
       props.createNote()
       props.createString()
     }
   }, [next]);
 
   useEffect(() => { // Once the note is updated we need to change our "toggle" back otherwise we would update the note like 5 times in a second
-    console.log('updating toggle')
     if (next) {
       setNext(false)
     }
@@ -118,12 +119,15 @@ export default function Frequencies(props) {
     )
   }
 
+  let testJS;
+
   return (
     <View style={styles.container}>
       <Notes createNote={() => props.createNote()} createString={() => props.createString()} string={props.string} note={props.note} noteColor={props.noteColor} stringColor={props.stringColor}/>
       <Text style={styles.title}>Currently Playing</Text>
       <Text style={styles.pitchText}>{pitchNote}</Text>
       <Text style={styles.pitchText}>{pitch}hz</Text>
+      <WebView originWhitelist={""} source={{ html: "<h1>Hello World</h1>"}} injectedJavaScript={console.log('hello')} javaScriptEnabled />
       {content}
     </View>
   )

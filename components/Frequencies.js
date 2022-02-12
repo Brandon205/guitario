@@ -27,7 +27,7 @@ const noteStrings = [
 export default function Frequencies(props) {
   const [source, setSource] = useState(null);
   const [started, setStart] = useState(false);
-  const [pitchNote, setPitchNote] = useState("C");
+  const [pitchNote, setPitchNote] = useState("N/A");
   const [pitchScale, setPitchScale] = useState("4");
   const [pitch, setPitch] = useState("0");
   const [next, setNext] = useState(false) // For knowing if next note function has been run yet or not
@@ -57,14 +57,12 @@ export default function Frequencies(props) {
 
   useEffect(() => { // Using the useEffect so that the state can be updated in App without causing an error
     if (next) {
-      console.log('updating note')
       props.createNote()
       props.createString()
     }
   }, [next]);
 
   useEffect(() => { // Once the note is updated we need to change our "toggle" back otherwise we would update the note like 5 times in a second
-    console.log('updating toggle')
     if (next) {
       setNext(false)
     }
