@@ -40,7 +40,7 @@ export default function Notes(props) {
                 <Text style={styles.noteText}>Note: <Text style={{color: props.noteColor}}>{props.note}</Text></Text>
             </Pressable>
 
-            <Text style={styles.text}>*Tap above/spacebar, or play the note correct down below to generate a new note to play*</Text>
+            <Text style={styles.text}>*Tap above or tap the spacebar to generate a new note to play*</Text>
             <Pressable onPress={() => setShowAnswer(!showAnswer)}>
                 <View style={styles.button}>
                     <Text style={styles.buttonText}>Stuck?</Text>
@@ -54,11 +54,10 @@ const styles = StyleSheet.create({
     container: {
         textAlign: 'center',
         display: 'flex',
-        justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#292B36',
         width: '100%',
-        height: '55%'
+        padding: 50
     },
     noteText: {
         fontSize: 50,

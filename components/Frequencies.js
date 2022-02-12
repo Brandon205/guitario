@@ -99,7 +99,6 @@ export default function Frequencies(props) {
   };
 
   if (pitchNote === props.note) { // Checks if the user is playing the Current Note
-    console.log('CORRECT note played')
     if (!next) { // If the note isn't already being changed then say it is and the UseEffect above will change it
       setNext(true)
     }
