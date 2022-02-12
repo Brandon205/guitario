@@ -85,11 +85,11 @@ export default function Frequencies(props) {
     });
   };
 
-  if (pitchNote === "A") { // TESTING OF LATER IMPLEMENTATION, use state to say whether it has ran
+  if (pitchNote === "A") { // TESTING OF LATER IMPLEMENTATION, TODO: use state to say whether it has ran?
     console.log("WINNER")
   }
 
-  let content;
+  let content; // TODO: change buttons to pressables here
   if (started) {
     content = (
       <Button title="Stop" onPress={stop} />
@@ -102,10 +102,11 @@ export default function Frequencies(props) {
 
   return (
     <View style={styles.container}>
+      <Notes createNote={() => props.createNote()} createString={() => props.createString()} string={props.string} note={props.note} noteColor={props.noteColor} stringColor={props.stringColor}/>
+      <Text style={styles.title}>Currently Playing</Text>
       <Text style={styles.pitchText}>{pitchNote}</Text>
       <Text style={styles.pitchText}>{pitch}hz</Text>
       {content}
-      <Notes createNote={() => props.createNote()} createString={() => props.createString()} string={props.string} note={props.note} noteColor={props.noteColor} stringColor={props.stringColor}/>
     </View>
   )
 }
@@ -122,6 +123,12 @@ const styles = StyleSheet.create({
   pitchText: {
     fontSize: 30,
     fontWeight: 'bold',
-    marginTop: 15
+    marginTop: 12
+  },
+  title: {
+    fontSize: 45,
+    fontWeight: 'bold',
+    color: 'white',
+    textDecorationLine: 'underline'
   }
-})
+});
