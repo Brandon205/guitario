@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import Notes from './Notes.js';
-import { noteFromPitch, centsOffFromPitch } from "../helpers/helper.js";
+import { noteFromPitch } from "../helpers/helper.js";
 import autoCorrelate from "../helpers/autoCorrelate.js";
 
 const audioCtx = new AudioContext();
@@ -39,21 +39,36 @@ export default function Frequencies(props) {
       let note = noteFromPitch(ac);
       let sym = noteStrings[note % 12];
       let scl = Math.floor(note / 12) - 1;
-      let dtune = centsOffFromPitch(ac, note);
+      // let dtune = centsOffFromPitch(ac, note);
       setPitch(parseFloat(ac).toFixed(2) + " Hz");
       setPitchNote(sym);
       setPitchScale(scl);
       // setDetune(dtune);
       // setNotification(false);
-      console.log(note, sym, scl, dtune, ac);
+      // console.log(note, sym, scl, dtune, ac);
     }
   };
 
-  useEffect(() => {
+  useEffect(() => { // When the source changes update it in the app
     if (source != null) {
       source.connect(analyserNode);
     }
   }, [source]);
+
+  useEffect(() => { // Using the useEffect so that the state can be updated in App without causing an error
+    if (next) {
+      console.log('updating note')
+      props.createNote()
+      props.createString()
+    }
+  }, [next]);
+
+  useEffect(() => { // Once the note is updated we need to change our "toggle" back otherwise we would update the note like 5 times in a second
+    console.log('updating toggle')
+    if (next) {
+      setNext(false)
+    }
+  }, [props.note]);
 
   setInterval(updatePitch, 1);
 
@@ -85,8 +100,11 @@ export default function Frequencies(props) {
     });
   };
 
-  if (pitchNote === "A") { // TESTING OF LATER IMPLEMENTATION, TODO: use state to say whether it has ran?
-    console.log("WINNER")
+  if (pitchNote === props.note) { // Checks if the user is playing the Current Note
+    console.log('CORRECT note played')
+    if (!next) { // If the note isn't already being changed then say it is and the UseEffect above will change it
+      setNext(true)
+    }
   }
 
   let content; // TODO: change buttons to pressables here
