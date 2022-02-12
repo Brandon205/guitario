@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Notes from './components/Notes';
+// import Notes from './components/Notes';
 import StringsNote from './components/StringsNote';
-import Frequencies from './components/Frequencies'; // FOR FUTURE RELEASE
+// import Frequencies from './components/Frequencies';
+import Frequencies from './components/FreqTest';
 
 const Stack = createNativeStackNavigator();
 
