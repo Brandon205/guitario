@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
-import { Button } from 'react-native';
+import { Button, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import Notes from './components/Notes';
 import StringsNote from './components/StringsNote';
-// import Frequencies from './components/Frequencies';
-import Frequencies from './components/FreqTest';
+import Frequencies from './components/Frequencies'
+// let Frequencies = <></>;
+// if (Platform.OS === 'web') {
+//   Frequencies = require('./components/Frequencies.js')
+// }
+// (async () => {
+//   if (Platform.OS === 'web') {
+//     let Frequencies = await import('./components/Frequencies');
+//   } else {
+//     let Frequencies = <></>
+//   }
+// })();
 
 const Stack = createNativeStackNavigator();
 
@@ -85,16 +95,29 @@ export default function App() {
     }
   }
 
+  let content;
+  if (Platform.OS === 'web') {
+    content = (
+      <Stack.Screen name="Guitario" options={({ navigation }) => ({
+        headerRight: () => (<Button title="Guitario Notes >" onPress={() => navigation.navigate('Guitario Notes')} />)
+      })}>
+        { props => <Frequencies {...props} createNote={() => createNote()} createString={() => createString()} string={string} note={note} noteColor={noteColor} stringColor={stringColor} /> }
+      </Stack.Screen>
+    )
+  } else {
+    content = (
+      <Stack.Screen name="Guitario" options={({ navigation }) => ({
+        headerRight: () => (<Button title="Guitario Notes >" onPress={() => navigation.navigate('Guitario Notes')} />)
+      })}>
+        { props => <Frequencies {...props} createNote={() => createNote()} createString={() => createString()} string={string} note={note} noteColor={noteColor} stringColor={stringColor} /> }
+      </Stack.Screen>
+    )
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerStyle: {backgroundColor: '#19191B'}, headerTintColor: '#fff', headerTitleAlign: 'center', headerTitleStyle: {fontSize: 24, fontWeight: 'bold'}}}>
-        <Stack.Screen name="Guitario" options={({ navigation }) => ({
-          // headerRight: () => (<Button title="Frequencies ->" onPress={() => navigation.navigate('Frequencies')} />) // FOR FUTURE RELEASE
-          headerRight: () => (<Button title="Guitario Notes >" onPress={() => navigation.navigate('Guitario Notes')} />)
-        })}>
-          {/* { props => <Notes {...props} createNote={() => createNote()} createString={() => createString()} string={string} note={note} noteColor={noteColor} stringColor={stringColor} /> } */}
-          { props => <Frequencies {...props} createNote={() => createNote()} createString={() => createString()} string={string} note={note} noteColor={noteColor} stringColor={stringColor} /> }
-        </Stack.Screen>
+        {content}
         <Stack.Screen name="Guitario Notes" options={({ navigation }) => ({
           headerLeft: () => (<Button title="< Guitario" onPress={() => navigation.navigate('Guitario')} />)
         })}>
