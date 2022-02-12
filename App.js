@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Notes from './components/Notes';
 import StringsNote from './components/StringsNote';
-// import Frequencies from './components/Frequencies'; // FOR FUTURE RELEASE
+import Frequencies from './components/Frequencies'; // FOR FUTURE RELEASE
 
 const Stack = createNativeStackNavigator();
 
@@ -91,13 +91,13 @@ export default function App() {
           // headerRight: () => (<Button title="Frequencies ->" onPress={() => navigation.navigate('Frequencies')} />) // FOR FUTURE RELEASE
           headerRight: () => (<Button title="Guitario Notes >" onPress={() => navigation.navigate('Guitario Notes')} />)
         })}>
-          { props => <Notes {...props} createNote={() => createNote()} createString={() => createString()} string={string} note={note} noteColor={noteColor} stringColor={stringColor} /> }
+          {/* { props => <Notes {...props} createNote={() => createNote()} createString={() => createString()} string={string} note={note} noteColor={noteColor} stringColor={stringColor} /> } */}
+          { props => <Frequencies {...props} createNote={() => createNote()} createString={() => createString()} string={string} note={note} noteColor={noteColor} stringColor={stringColor} /> }
         </Stack.Screen>
         <Stack.Screen name="Guitario Notes" options={({ navigation }) => ({
           headerLeft: () => (<Button title="< Guitario" onPress={() => navigation.navigate('Guitario')} />)
         })}>
           { props => <StringsNote {...props} createNote={() => createNote()} note={note} noteColor={noteColor} /> }
-          {/* { props => <Frequencies /> } FOR FUTURE RELEASE*/} 
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
