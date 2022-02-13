@@ -6,7 +6,7 @@ export default function StringsNote(props) {
         <Pressable style={styles.container} onTouchStart={() => props.createNote()}>
             <Text style={styles.noteText}>Note: <Text style={{color: props.noteColor}}>{props.note}</Text></Text>
             <View style={styles.textContainer}>
-                <Text style={styles.text}>*Play the above note on all of the strings</Text>
+                <Text style={styles.text}>*Play the note on all of the strings</Text>
                 <Text style={styles.text}>*Tap anywhere on the screen or tap the spacebar to generate a new note*</Text>
             </View>
         </Pressable>

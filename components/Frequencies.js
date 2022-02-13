@@ -152,7 +152,6 @@ export default function Frequencies(props) {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#292B36',
     height: '100%'

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Pressable, Platform } from 'react-native'
+import React, { useState, useEffect, useCallback } from 'react'
+import { View, Text, StyleSheet, Pressable, Button, Platform, Linking } from 'react-native'
 const frets = require('./frets.json')
 
 export default function Notes(props) {
@@ -31,6 +31,25 @@ export default function Notes(props) {
         props.createString()
     }
 
+    const handlePress = useCallback(async () => { // Handles the creation of the link that is in the app
+        const supported = await Linking.canOpenURL("https://brandon205.github.io/guitario/");
+    
+        if (supported) { // Open the link with what makes sense depending on the type of link
+            await Linking.openURL("https://brandon205.github.io/guitario/");
+        } else {
+        Alert.alert(`Don't know how to open this URL: https://brandon205.github.io/guitario/`);
+        }
+    });
+
+    let content; // Dynamically display a link to the main site if mobile users want to go there
+    if (Platform.OS !== 'web') {
+        content = (
+            <Button title="Go To the Full Site" onPress={() => handlePress()} />
+        )
+    } else {
+        content = <></>
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>To Play</Text>
@@ -46,6 +65,7 @@ export default function Notes(props) {
                     <Text style={styles.buttonText}>Stuck?</Text>
                 </View>
             </Pressable>
+            {content}
         </View>
     )
 }
@@ -90,6 +110,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 20,
+        marginBottom: 50,
         backgroundColor: '#2196F3',
         borderRadius: 20,
     },
