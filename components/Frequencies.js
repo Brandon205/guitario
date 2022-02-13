@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
 import Notes from './Frequencies.android.js';
 import { noteFromPitch } from "../helpers/helper.js";
 import autoCorrelate from "../helpers/autoCorrelate.js";
@@ -23,6 +23,21 @@ const noteStrings = [
   "A#",
   "B",
 ];
+
+const noteColors = {
+  "C": "#22ff00",
+  "C#": "#00ff38",
+  "D": "#007cff",
+  "D#": "#0500ff",
+  "E": "#4500ea",
+  "F": "#57009e",
+  "F#": "#55004f",
+  "G": "#b30000",
+  "G#": "#ee0000",
+  "A": "#ff6300",
+  "A#": "#ffec00",
+  "B": "#99ff00",
+}
 
 export default function Frequencies(props) {
   const [source, setSource] = useState(null);
@@ -104,14 +119,22 @@ export default function Frequencies(props) {
     }
   }
 
-  let content; // TODO: change buttons to pressables here
+  let content; // For dynamically rendering the Start or Stop button
   if (started) {
     content = (
-      <Button title="Stop" onPress={stop} />
+      <Pressable onPress={stop}>
+        <View style={styles.button}>
+          <Text style={styles.buttonText}>Stop</Text>
+        </View>
+      </Pressable>
     )
   } else {
     content = (
-      <Button title="Start" onPress={start} />
+      <Pressable onPress={start}>
+        <View style={styles.button}>
+          <Text style={styles.buttonText}>Start</Text>
+        </View>
+      </Pressable>
     )
   }
 
@@ -119,8 +142,8 @@ export default function Frequencies(props) {
     <View style={styles.container}>
       <Notes createNote={() => props.createNote()} createString={() => props.createString()} string={props.string} note={props.note} noteColor={props.noteColor} stringColor={props.stringColor}/>
       <Text style={styles.title}>Currently Playing</Text>
-      <Text style={styles.pitchText}>{pitchNote}</Text>
-      <Text style={styles.pitchText}>{pitch}hz</Text>
+      <Text style={{color: noteColors[pitchNote], fontSize: 30, fontWeight: 'bold', marginTop: 12}}>{pitchNote}</Text>
+      <Text style={{color: noteColors[pitchNote], fontSize: 30, fontWeight: 'bold', marginTop: 12}}>{pitch}hz</Text>
       {content}
     </View>
   )
@@ -132,18 +155,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#292B36',
-    width: '100%',
     height: '100%'
   },
-  pitchText: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    marginTop: 12
-  },
   title: {
-    fontSize: 45,
+    fontSize: 40,
     fontWeight: 'bold',
     color: 'white',
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
+    marginTop: 55,
+    marginBottom: 15
+  },
+  button: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+    backgroundColor: '#2196F3',
+    borderRadius: 20,
+    marginBottom: 70
+    },
+  buttonText: {
+    color: 'white',
+    padding: 10,
+    fontSize: 20
   }
 });

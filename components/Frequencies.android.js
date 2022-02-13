@@ -54,10 +54,9 @@ const styles = StyleSheet.create({
     container: {
         textAlign: 'center',
         display: 'flex',
+        flex: 1,
         alignItems: 'center',
         backgroundColor: '#292B36',
-        width: '100%',
-        padding: 50
     },
     noteText: {
         fontSize: 50,
@@ -70,10 +69,11 @@ const styles = StyleSheet.create({
         maxWidth: '75%'
     },
     title: {
-        fontSize: 45,
+        fontSize: 40,
         fontWeight: 'bold',
         color: 'white',
-        textDecorationLine: 'underline'
+        textDecorationLine: 'underline',
+        marginTop: 35
     },
     answer: {
         fontSize: 12,
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 20,
         backgroundColor: '#2196F3',
-        borderRadius: 20
+        borderRadius: 20,
     },
     buttonText: {
         color: 'white',
