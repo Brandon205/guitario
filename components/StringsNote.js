@@ -5,7 +5,6 @@ export default function StringsNote(props) {
 
     const handlePress = useCallback(async () => { // Handles the creation of the link that is in the app
         const supported = await Linking.canOpenURL("https://github.com/Brandon205/guitario");
-        console.log("hello")
     
         if (supported) { // Open the link with what makes sense depending on the type of link
             await Linking.openURL("https://github.com/Brandon205/guitario");
@@ -17,6 +16,7 @@ export default function StringsNote(props) {
     return (
         <>
             <Pressable style={styles.container} onTouch={() => props.createNote()}>
+                <Text style={styles.title}>To Play</Text>
                 <Text style={styles.noteText}>Note: <Text style={{color: props.noteColor}}>{props.note}</Text></Text>
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>*Play the note on all of the strings</Text>
@@ -49,6 +49,14 @@ const styles = StyleSheet.create({ // {color: '#fff', fontWeight: 'bold'}{color:
         color: 'white',
         marginBottom: 18
     },
+    title: {
+        fontSize: 40,
+        fontWeight: 'bold',
+        color: 'white',
+        textDecorationLine: 'underline',
+        marginTop: 55,
+        marginBottom: 25
+    },
     text: {
         color: '#fff',
         marginTop: 10,
@@ -59,6 +67,8 @@ const styles = StyleSheet.create({ // {color: '#fff', fontWeight: 'bold'}{color:
         top: 25,
         right: 0,
         zIndex: 1,
+        borderBottomLeftRadius: 25,
+        borderTopLeftRadius: 25
     },
     bannerText: {
         color: 'white',

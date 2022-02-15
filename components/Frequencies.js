@@ -145,6 +145,9 @@ export default function Frequencies(props) {
       <Text style={{color: noteColors[pitchNote], fontSize: 30, fontWeight: 'bold', marginTop: 12}}>{pitchNote}</Text>
       <Text style={{color: noteColors[pitchNote], fontSize: 30, fontWeight: 'bold', marginTop: 12}}>{pitch}hz</Text>
       {content}
+      <View style={styles.cornerRibbon}>
+        <Text style={styles.bannerText} onPress={() => handlePress()}>Github Page</Text>
+      </View>
     </View>
   )
 }
@@ -177,5 +180,20 @@ const styles = StyleSheet.create({
     color: 'white',
     padding: 10,
     fontSize: 20
+  },
+  cornerRibbon: {
+    backgroundColor: '#FF6300',
+    position: 'absolute',
+    top: 25,
+    right: 0,
+    zIndex: 1,
+    borderBottomLeftRadius: 25,
+    borderTopLeftRadius: 25
+  },
+  bannerText: {
+    color: 'white',
+    textAlign: 'center',
+    width: 120,
+    padding: 10,
   }
 });
