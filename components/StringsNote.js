@@ -24,7 +24,7 @@ export default function StringsNote(props) {
                 </View>
             </Pressable>
             <View style={styles.cornerRibbon}>
-                <Text style={styles.bannerText} onPress={() => handlePress()}>Github Page</Text>
+                <Text style={styles.bannerText} onPress={() => handlePress()}>Github</Text>
             </View>
         </>
     )

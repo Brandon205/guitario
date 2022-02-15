@@ -146,7 +146,7 @@ export default function Frequencies(props) {
       <Text style={{color: noteColors[pitchNote], fontSize: 30, fontWeight: 'bold', marginTop: 12}}>{pitch}hz</Text>
       {content}
       <View style={styles.cornerRibbon}>
-        <Text style={styles.bannerText} onPress={() => handlePress()}>Github Page</Text>
+        <Text style={styles.bannerText} onPress={() => handlePress()}>Github</Text>
       </View>
     </View>
   )
