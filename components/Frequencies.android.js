@@ -37,7 +37,7 @@ export default function Notes(props) {
         if (supported) { // Open the link with what makes sense depending on the type of link
             await Linking.openURL("https://brandon205.github.io/guitario/");
         } else {
-        Alert.alert(`Don't know how to open this URL: https://brandon205.github.io/guitario/`);
+        Alert.alert('Failed to open this url: https://brandon205.github.io/guitario/');
         }
     });
 
