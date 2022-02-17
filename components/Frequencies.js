@@ -43,7 +43,7 @@ export default function Frequencies(props) {
   const [source, setSource] = useState(null);
   const [started, setStart] = useState(false);
   const [pitchNote, setPitchNote] = useState("N/A");
-  const [pitchScale, setPitchScale] = useState("4");
+  // const [pitchScale, setPitchScale] = useState("4");
   const [pitch, setPitch] = useState("0");
   const [next, setNext] = useState(false) // For knowing if next note function has been run yet or not
 
@@ -57,7 +57,7 @@ export default function Frequencies(props) {
       // let dtune = centsOffFromPitch(ac, note);
       setPitch(parseFloat(ac).toFixed(2) + " Hz");
       setPitchNote(sym);
-      setPitchScale(scl);
+      // setPitchScale(scl);
       // setDetune(dtune);
       // setNotification(false);
       // console.log(note, sym, scl, dtune, ac);
@@ -75,9 +75,10 @@ export default function Frequencies(props) {
       props.createNote()
       props.createString()
     }
+    console.log("updated", next)
   }, [next]);
 
-  useEffect(() => { // Once the note is updated we need to change our "toggle" back otherwise we would update the note like 5 times in a second
+  useEffect(() => { // Once the note is updated we need to change the "toggle" back otherwise we would update the note like 5 times in a second
     if (next) {
       setNext(false)
     }
@@ -115,6 +116,7 @@ export default function Frequencies(props) {
 
   if (pitchNote === props.note) { // Checks if the user is playing the Current Note
     if (!next) { // If the note isn't already being changed then say it is and the UseEffect above will change it
+      console.log("Correct Note played", pitchNote, props.note, next)
       setNext(true)
     }
   }
