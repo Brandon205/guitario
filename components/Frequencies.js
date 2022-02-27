@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
+import Sound from 'react-native-sound';
 import Notes from './Frequencies.android.js';
 import { noteFromPitch } from "../helpers/helper.js";
 import autoCorrelate from "../helpers/autoCorrelate.js";
@@ -8,6 +9,8 @@ const audioCtx = new AudioContext();
 const analyserNode = audioCtx.createAnalyser();
 const buflen = 2048;
 var buf = new Float32Array(buflen);
+
+Sound.setCategory('playback');
 
 const noteStrings = [
   "C",
@@ -46,6 +49,8 @@ export default function Frequencies(props) {
   // const [pitchScale, setPitchScale] = useState("4");
   const [pitch, setPitch] = useState("0");
   const [next, setNext] = useState(false) // For knowing if next note function has been run yet or not
+
+  let sound = new Sound('correct.wav', Sound.MAIN_BUNDLE)
 
   const updatePitch = (time) => {
     analyserNode.getFloatTimeDomainData(buf);
