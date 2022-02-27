@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
-import { Audio } from 'expo-av';
+// import { Audio } from 'expo-av';
+// const correctSound = require('../assets/correct.mp3');
 import Notes from './Frequencies.android.js';
 import { noteFromPitch } from "../helpers/helper.js";
 import autoCorrelate from "../helpers/autoCorrelate.js";
-const correctSound = require('../assets/correct.mp3');
 
 const audioCtx = new AudioContext();
 const analyserNode = audioCtx.createAnalyser();
