@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
-import Sound from 'react-native-sound';
+import { Audio } from 'expo-av';
 import Notes from './Frequencies.android.js';
 import { noteFromPitch } from "../helpers/helper.js";
 import autoCorrelate from "../helpers/autoCorrelate.js";
+const correctSound = require('../assets/correct.mp3');
 
 const audioCtx = new AudioContext();
 const analyserNode = audioCtx.createAnalyser();
 const buflen = 2048;
 var buf = new Float32Array(buflen);
-
-Sound.setCategory('playback');
 
 const noteStrings = [
   "C",
@@ -49,8 +48,7 @@ export default function Frequencies(props) {
   // const [pitchScale, setPitchScale] = useState("4");
   const [pitch, setPitch] = useState("0");
   const [next, setNext] = useState(false) // For knowing if next note function has been run yet or not
-
-  let sound = new Sound('correct.wav', Sound.MAIN_BUNDLE)
+  const [sound, setSound] = useState()
 
   const updatePitch = (time) => {
     analyserNode.getFloatTimeDomainData(buf);
@@ -89,6 +87,14 @@ export default function Frequencies(props) {
     }
   }, [props.note]);
 
+  React.useEffect(() => { // For the "Correct" sound
+    return sound
+      ? () => {
+        console.log('Unloading Sound');
+        sound.unloadAsync(); }
+      : undefined;
+  }, [sound]);
+
   setInterval(updatePitch, 1);
 
   const start = async () => {
@@ -121,9 +127,28 @@ export default function Frequencies(props) {
 
   if (pitchNote === props.note) { // Checks if the user is playing the Current Note
     if (!next) { // If the note isn't already being changed then say it is and the UseEffect above will change it
-      console.log("Correct Note played", pitchNote, props.note, next)
+      playSound()
       setNext(true)
     }
+  }
+
+  async function playSound() {
+    // const { sound } = await Audio.Sound.createAsync(
+    //   require('./assets/correct.mp3')
+    // );
+    // setSound(sound);
+
+    // console.log('Playing Sound');
+    // await sound.playAsync(); 
+    // const sound = new Audio.Sound()
+
+    // let source = require('../assets/correct.mp3')
+    // await sound.loadAsync(source)
+    // await sound.playAsync().then(async playbackStatus => {
+    //   setTimeout(() => {
+    //     sound.unloadAsync()
+    //   }, playbackStatus.playableDurationMillis)
+    // })
   }
 
   let content; // For dynamically rendering the Start or Stop button
