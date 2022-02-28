@@ -21,7 +21,7 @@ const noteStrings = [
   "G#",
   "A",
   "A#",
-  "B",
+  "B"
 ];
 
 const noteColors = {
@@ -36,14 +36,13 @@ const noteColors = {
   "G#": "#ee0000",
   "A": "#ff6300",
   "A#": "#ffec00",
-  "B": "#99ff00",
+  "B": "#99ff00"
 }
 
 export default function Frequencies(props) {
   const [source, setSource] = useState(null);
   const [started, setStart] = useState(false);
   const [pitchNote, setPitchNote] = useState("N/A");
-  // const [pitchScale, setPitchScale] = useState("4");
   const [pitch, setPitch] = useState("0");
   const [next, setNext] = useState(false) // For knowing if next note function has been run yet or not
 
@@ -53,13 +52,8 @@ export default function Frequencies(props) {
     if (ac > -1) {
       let note = noteFromPitch(ac);
       let sym = noteStrings[note % 12];
-      // let scl = Math.floor(note / 12) - 1;
-      // let dtune = centsOffFromPitch(ac, note);
       setPitch(parseFloat(ac).toFixed(2) + " Hz");
       setPitchNote(sym);
-      // setPitchScale(scl);
-      // setDetune(dtune);
-      // setNotification(false);
     }
   };
 
@@ -113,7 +107,6 @@ export default function Frequencies(props) {
 
   if (pitchNote === props.note) { // Checks if the user is playing the Current Note
     if (!next) { // If the note isn't already being changed then say it is and the UseEffect above will change it
-      // playSound()
       setNext(true)
     }
   }
