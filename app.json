@@ -2,7 +2,7 @@
   "expo": {
     "name": "Guitario",
     "slug": "guitario",
-    "version": "2.1.5",
+    "version": "2.5.8",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
