@@ -8,8 +8,8 @@ import Frequencies from './components/Frequencies'; // Will pull either the .and
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [note, setNote] = useState("0");
-  const [string, setString] = useState("E (6th)");
+  const [note, setNote] = useState("A");
+  const [string, setString] = useState("6th (E)");
   const [noteColor, setNoteColor] = useState("#33CC33");
   const [stringColor, setStringColor] = useState("#D07173");
 
@@ -55,27 +55,27 @@ export default function App() {
 
     switch (tempString) {
       case "0":
-        setString("E (6th)")
+        setString("6th (E)")
         setStringColor('#4500ea')
         break;
       case "1":
-        setString("A (5th)")
+        setString("5th (A)")
         setStringColor('#ff6300')
         break;
       case "2":
-        setString("D (4th)")
+        setString("4th (D)")
         setStringColor('#007cff')
         break;
       case "3":
-        setString("G (3rd)")
+        setString("3rd (G)")
         setStringColor('#b30000')
         break;
       case "4":
-        setString("B (2nd)")
+        setString("2nd (B)")
         setStringColor('#99ff00')
         break;
       case "5":
-        setString("e (1st)")
+        setString("1st (e)")
         setStringColor('#4500ea')
         break;
       default:

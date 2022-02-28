@@ -53,6 +53,8 @@ export default function Frequencies(props) {
       let note = noteFromPitch(ac);
       let sym = noteStrings[note % 12];
       setPitch(parseFloat(ac).toFixed(2) + " Hz");
+      
+      
       setPitchNote(sym);
     }
   };
