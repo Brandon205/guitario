@@ -44,7 +44,6 @@ export default function Frequencies(props) {
   const [started, setStart] = useState(false);
   const [pitchNote, setPitchNote] = useState("N/A");
   const [pitch, setPitch] = useState("0");
-  const [next, setNext] = useState(false) // For knowing if next note function has been run yet or not
 
   const updatePitch = (time) => {
     analyserNode.getFloatTimeDomainData(buf);
@@ -53,8 +52,6 @@ export default function Frequencies(props) {
       let note = noteFromPitch(ac);
       let sym = noteStrings[note % 12];
       setPitch(parseFloat(ac).toFixed(2) + " Hz");
-      
-      
       setPitchNote(sym);
     }
   };
@@ -65,19 +62,12 @@ export default function Frequencies(props) {
     }
   }, [source]);
 
-  useEffect(() => { // Using the useEffect so that the state can be updated in App without causing an error
-    if (next) {
+  useEffect(() => { // Will check if the last played note is the correct one, if so it will make a new note to play
+    if (pitchNote === props.note) {
       props.createNote()
       props.createString()
     }
-    console.log("updated", next)
-  }, [next]);
-
-  useEffect(() => { // Once the note is updated we need to change the "toggle" back otherwise we would update the note like 5 times in a second
-    if (next) {
-      setNext(false)
-    }
-  }, [props.note]);
+  }, [pitchNote])
 
   setInterval(updatePitch, 1);
 
@@ -106,12 +96,6 @@ export default function Frequencies(props) {
       },
     });
   };
-
-  if (pitchNote === props.note) { // Checks if the user is playing the Current Note
-    if (!next) { // If the note isn't already being changed then say it is and the UseEffect above will change it
-      setNext(true)
-    }
-  }
 
   let content; // For dynamically rendering the Start or Stop button
   if (started) {
