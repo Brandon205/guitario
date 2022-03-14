@@ -95,7 +95,7 @@ export default function App() {
   } else {
     content = (
       <Stack.Screen name="Guitario" options={({ navigation }) => ({
-        headerRight: () => (<Pressable onPress={() => navigation.navigate('Notes')}><Text style={styles.headerText}>GUITARIO</Text></Pressable>)
+        headerRight: () => (<Pressable onPress={() => navigation.navigate('Notes')}><Text style={styles.headerText}>NOTES</Text></Pressable>)
       })}>
         { props => <Frequencies {...props} createNote={() => createNote()} createString={() => createString()} string={string} note={note} noteColor={noteColor} stringColor={stringColor} /> }
       </Stack.Screen>
