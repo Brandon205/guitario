@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import Notes from './Frequencies.android.js';
-import useSound from 'react-native-use-sound';
+import useSound from 'use-sound';
+import correctSound from '../assets/correct.mp3';
 import { noteFromPitch } from "../helpers/helper.js";
 import autoCorrelate from "../helpers/autoCorrelate.js";
 
@@ -45,6 +46,7 @@ export default function Frequencies(props) {
   const [started, setStart] = useState(false);
   const [pitchNote, setPitchNote] = useState("N/A");
   const [pitch, setPitch] = useState("0");
+  const [play] = useSound(correctSound);
 
   const updatePitch = (time) => {
     analyserNode.getFloatTimeDomainData(buf);
@@ -65,6 +67,7 @@ export default function Frequencies(props) {
 
   useEffect(() => { // Will check if the last played note is the correct one, if so it will make a new note to play
     if (pitchNote === props.note) {
+      play();
       props.createNote()
       props.createString()
     }

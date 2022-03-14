@@ -22,10 +22,9 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
-    "react-native-sound": "^0.11.2",
-    "react-native-use-sound": "^1.2.1",
     "react-native-web": "^0.17.5",
-    "standardized-audio-context": "^25.3.21"
+    "standardized-audio-context": "^25.3.21",
+    "use-sound": "^4.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"
