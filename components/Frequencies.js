@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import Notes from './Frequencies.android.js';
+import useSound from 'react-native-use-sound';
 import { noteFromPitch } from "../helpers/helper.js";
 import autoCorrelate from "../helpers/autoCorrelate.js";
 
