@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     textDecorationLine: 'underline',
-    marginTop: 55,
+    marginTop: 45,
     marginBottom: 15
   },
   button: {
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   bannerText: {
     color: 'white',
     textAlign: 'center',
-    width: 120,
+    width: 80,
     padding: 10,
   }
 });

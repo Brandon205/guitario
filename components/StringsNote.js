@@ -54,7 +54,7 @@ const styles = StyleSheet.create({ // {color: '#fff', fontWeight: 'bold'}{color:
         fontWeight: 'bold',
         color: 'white',
         textDecorationLine: 'underline',
-        marginTop: 55,
+        marginTop: 45,
         marginBottom: 25
     },
     text: {
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({ // {color: '#fff', fontWeight: 'bold'}{color:
     bannerText: {
         color: 'white',
         textAlign: 'center',
-        width: 120,
+        width: 85,
         padding: 10,
     }
 })

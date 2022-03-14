@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Platform } from 'react-native';
+import { Text, Platform, Pressable, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import StringsNote from './components/StringsNote';
@@ -87,7 +87,7 @@ export default function App() {
   if (Platform.OS === 'web') {
     content = (
       <Stack.Screen name="Guitario" options={({ navigation }) => ({
-        headerRight: () => (<Button title="Notes >" onPress={() => navigation.navigate('Notes')} />)
+        headerRight: () => (<Pressable title="Notes >" onPress={() => navigation.navigate('Notes')}><Text style={styles.headerText}>NOTES</Text></Pressable>)
       })}>
         { props => <Frequencies {...props} createNote={() => createNote()} createString={() => createString()} string={string} note={note} noteColor={noteColor} stringColor={stringColor} /> }
       </Stack.Screen>
@@ -95,7 +95,7 @@ export default function App() {
   } else {
     content = (
       <Stack.Screen name="Guitario" options={({ navigation }) => ({
-        headerRight: () => (<Button title="Notes >" onPress={() => navigation.navigate('Notes')} />)
+        headerRight: () => (<Pressable onPress={() => navigation.navigate('Notes')}><Text style={styles.headerText}>GUITARIO</Text></Pressable>)
       })}>
         { props => <Frequencies {...props} createNote={() => createNote()} createString={() => createString()} string={string} note={note} noteColor={noteColor} stringColor={stringColor} /> }
       </Stack.Screen>
@@ -107,7 +107,7 @@ export default function App() {
       <Stack.Navigator screenOptions={{headerStyle: {backgroundColor: '#19191B'}, headerTintColor: '#fff', headerTitleAlign: 'center', headerTitleStyle: {fontSize: 24, fontWeight: 'bold'}}}>
         {content}
         <Stack.Screen name="Notes" options={({ navigation }) => ({
-          headerLeft: () => (<Button title="< Guitario" onPress={() => navigation.navigate('Guitario')} />)
+          headerLeft: () => (<Pressable onPress={() => navigation.navigate('Guitario')}><Text style={styles.headerText}>GUITARIO</Text></Pressable>)
         })}>
           { props => <StringsNote {...props} createNote={() => createNote()} note={note} noteColor={noteColor} /> }
         </Stack.Screen>
@@ -115,3 +115,13 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  headerText: {
+    fontSize: 22,
+    color: '#fff',
+    marginRight: 15,
+    marginLeft: 15,
+    textDecorationLine: 'underline'
+  }
+})
