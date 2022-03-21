@@ -139,7 +139,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     backgroundColor: '#292B36',
-    overflow: 'visible'
+    overflow: 'visible',
+    height: '100%'
   },
   title: {
     fontSize: 40,
