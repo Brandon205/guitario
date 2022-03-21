@@ -15,7 +15,7 @@ export default function StringsNote(props) {
 
     return (
         <>
-            <Pressable style={styles.container} onTouch={() => props.createNote()}>
+            <Pressable style={styles.container} onPress={() => props.createNote()}>
                 <Text style={styles.title}>To Play</Text>
                 <Text style={styles.noteText}>Note: <Text style={{color: props.noteColor}}>{props.note}</Text></Text>
                 <View style={styles.textContainer}>
