@@ -125,7 +125,7 @@ export default function Frequencies(props) {
       <Notes createNote={() => props.createNote()} createString={() => props.createString()} string={props.string} note={props.note} noteColor={props.noteColor} stringColor={props.stringColor}/>
       <Text style={styles.title}>Currently Playing</Text>
       <Text style={{color: noteColors[pitchNote], fontSize: 30, fontWeight: 'bold', marginTop: 12}}>{pitchNote}</Text>
-      <Text style={{color: noteColors[pitchNote], fontSize: 30, fontWeight: 'bold', marginTop: 12}}>{pitch}hz</Text>
+      <Text style={{color: noteColors[pitchNote], fontSize: 30, fontWeight: 'bold', marginTop: 12}}>{pitch}</Text>
       {content}
       <View style={styles.cornerRibbon}>
         <Text style={styles.bannerText} onPress={() => handlePress()}>Github</Text>
