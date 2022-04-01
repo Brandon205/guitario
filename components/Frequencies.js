@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
-import Notes from './Frequencies.android.js';
 import useSound from 'use-sound';
+
+import Notes from './Frequencies.android.js';
+const frets = require('./frets.json');
+
 import correctSound from '../assets/correct.mp3';
 import { noteFromPitch } from "../helpers/helper.js";
 import autoCorrelate from "../helpers/autoCorrelate.js";
-const frets = require('./frets.json')
 
 const audioCtx = new AudioContext();
 const analyserNode = audioCtx.createAnalyser();
@@ -71,7 +73,6 @@ export default function Frequencies(props) {
 
   useEffect(() => { // Will check if the last played note is the correct one, if so it will make a new note to play
     if (pitchNote === props.note && pitchScale === frets[props.string][props.note]["scale"]) {
-      console.log(pitchScale, frets[props.string][props.note]["scale"])
       play();
       props.createNote()
       props.createString()
