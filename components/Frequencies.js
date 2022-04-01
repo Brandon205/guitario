@@ -45,6 +45,7 @@ export default function Frequencies(props) {
   const [source, setSource] = useState(null);
   const [started, setStart] = useState(false);
   const [pitchNote, setPitchNote] = useState("N/A");
+  const [pitchScale, setPitchScale] = useState("4");
   const [pitch, setPitch] = useState("0");
   const [play] = useSound(correctSound);
 
@@ -54,8 +55,11 @@ export default function Frequencies(props) {
     if (ac > -1) {
       let note = noteFromPitch(ac);
       let sym = noteStrings[note % 12];
+      let scl = Math.floor(note / 12) - 1;
       setPitch(parseFloat(ac).toFixed(2) + " Hz");
       setPitchNote(sym);
+      setPitchScale(scl);
+      console.log(pitchScale);
     }
   };
 
@@ -140,7 +144,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#292B36',
     overflow: 'visible',
-    height: '100%'
+    minHeight: '100%'
   },
   title: {
     fontSize: 40,
