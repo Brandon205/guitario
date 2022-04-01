@@ -53,7 +53,7 @@ export default function Notes(props) {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>To Play</Text>
-            <Text style={{display: showAnswer ? 'flex' : 'none', color: 'white', fontSize: 30}}>Correct fret: {frets[props.string][props.note]}</Text>
+            <Text style={{display: showAnswer ? 'flex' : 'none', color: 'white', fontSize: 30}}>Correct fret: {frets[props.string][props.note]["fret"]}</Text>
             <Pressable style={styles.toPlay} onPress={() => playThis()}>
                 <Text style={styles.noteText}>String: <Text style={{color: props.stringColor}}>{props.string}</Text></Text>
                 <Text style={styles.noteText}>Note: <Text style={{color: props.noteColor}}>{props.note}</Text></Text>

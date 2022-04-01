@@ -5,6 +5,7 @@ import useSound from 'use-sound';
 import correctSound from '../assets/correct.mp3';
 import { noteFromPitch } from "../helpers/helper.js";
 import autoCorrelate from "../helpers/autoCorrelate.js";
+const frets = require('./frets.json')
 
 const audioCtx = new AudioContext();
 const analyserNode = audioCtx.createAnalyser();
@@ -59,7 +60,6 @@ export default function Frequencies(props) {
       setPitch(parseFloat(ac).toFixed(2) + " Hz");
       setPitchNote(sym);
       setPitchScale(scl);
-      console.log(pitchScale);
     }
   };
 
@@ -70,14 +70,15 @@ export default function Frequencies(props) {
   }, [source]);
 
   useEffect(() => { // Will check if the last played note is the correct one, if so it will make a new note to play
-    if (pitchNote === props.note) {
+    if (pitchNote === props.note && pitchScale === frets[props.string][props.note]["scale"]) {
+      console.log(pitchScale, frets[props.string][props.note]["scale"])
       play();
       props.createNote()
       props.createString()
     }
   }, [pitchNote])
 
-  setInterval(updatePitch, 1);
+  setInterval(updatePitch, 10);
 
   const start = async () => {
     const input = await getMicInput();
